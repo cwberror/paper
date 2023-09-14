@@ -4,7 +4,7 @@ from torch import nn
 import torchvision
 import torchvision.datasets as datasets
 from torchvision.transforms import ToTensor
-import tool
+from tool import tool
 
 import matplotlib.pyplot as plt
 
