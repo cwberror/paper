@@ -18,8 +18,10 @@ def showImageByElementOfDataset(data,style=None):
         plt.imshow(img,cmap=style)
 
 def showImage(tensor,style=None):
-    tensor=tool.tensor2numpy(tensor)
+    # tensor=tool.tensor2numpy(tensor)
     tensor=tensor.squeeze()
+    if tensor.data.is_cuda:
+        tensor = tensor.cpu().detach()
     if tensor.shape[0]==3:
         tensor=tensor.permute(1,2,0)
         plt.imshow(tensor, cmap=style)

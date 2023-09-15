@@ -4,11 +4,8 @@ import torch
 
 
 def getValueCount(tensor):
-    ndarray=None
-    if isinstance(tensor,torch.Tensor):
-        ndarry=tensor.numpy()
-    else:
-        ndarray=tensor
+    ndarray=tensor2numpy(tensor)
+
     unique, count = np.unique(ndarray, return_counts=True)
     data_count = dict(zip(unique, count))
     df = pd.DataFrame(data_count, index=[0]).T.reset_index()
@@ -18,11 +15,14 @@ def getValueCount(tensor):
 
 
 def tensor2numpy(tensor):
-    if tensor.data.is_cuda:
-        tensor = tensor.cpu().detach()
+    ndarray=None
+    if isinstance(tensor,torch.Tensor):
+        if tensor.data.is_cuda:
+            tensor = tensor.cpu().detach()
+        ndarray=tensor.numpy()
     else:
-        pass
-    return tensor
+        ndarray=tensor
+    return ndarray
 
 
 def Dim3to4(tensor):
