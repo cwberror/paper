@@ -3,6 +3,9 @@ from torch import optim
 import torch.nn as nn
 import torch
 import time
+import pandas as pd
+import numpy as np
+
 
 def train_net(net,dataloader, device, epochs=40, batch_size=1, lr=0.00001):
     # 加载训练集
