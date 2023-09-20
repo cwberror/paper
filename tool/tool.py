@@ -19,7 +19,8 @@ def tensor2numpy(tensor):
     if isinstance(tensor,torch.Tensor):
         if tensor.data.is_cuda:
             tensor = tensor.cpu().detach()
-        ndarray=tensor.numpy()
+        ndarray=tensor.squeeze().permute(1,2,0).sigmoid().numpy()
+
     else:
         ndarray=tensor
     return ndarray
