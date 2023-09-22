@@ -26,21 +26,21 @@ def read_image_path(img_dir,label_dir):
         data[i] = os.path.join(img_dir,fname)
         img=cv2.imread(data[i])
 
-        try:
-            # img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            cv2.imwrite(data[i], img)
-        except Exception as e:
-            print(e)
+        # try:
+        #     img = cv2.cvtColor(img, cv2.IMREAD_GRAYSCALE)
+        #     cv2.imwrite(data[i], img)
+        # except Exception as e:
+        #     print(e)
 
 
 
     for i,fname in enumerate(os.listdir(label_dir)):
         label[i] = os.path.join(label_dir,fname)
-        img=cv2.imread(label[i])
+        lab=cv2.imread(label[i])
 
         try:
-            # img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            cv2.imwrite(label[i], img)
+            # lab = cv2.cvtColor(lab, cv2.IMREAD_GRAYSCALE)
+            cv2.imwrite(label[i], lab)
         except Exception as e:
             print(e)
 
@@ -83,6 +83,7 @@ class LzgdDataset(Dataset):
 
         img = cv2.imread(img)
 
+        # label = cv2.imread(label,cv2.IMREAD_GRAYSCALE)
         label = cv2.imread(label)
 
         img, label = self.img_transforms(img, label,self.mean,self.std)

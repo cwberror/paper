@@ -11,6 +11,7 @@ def getValueCount(tensor):
     df = pd.DataFrame(data_count, index=[0]).T.reset_index()
     df=df.rename(columns={'index':'数值',0:'数量'})
     df.to_csv('tensor数值统计.csv',index=False)
+    print(f"数值统计为：{data_count}")
     return data_count
 
 
@@ -19,7 +20,11 @@ def tensor2numpy(tensor):
     if isinstance(tensor,torch.Tensor):
         if tensor.data.is_cuda:
             tensor = tensor.cpu().detach()
-        ndarray=tensor.squeeze().permute(1,2,0).sigmoid().numpy()
+        if len(tensor.shape)==4:
+            ndarray = tensor.squeeze().permute(1, 2, 0).numpy()
+        else:
+            ndarray = tensor.permute(1, 2, 0).numpy()
+        # ndarray=tensor.squeeze().permute(1,2,0).sigmoid().numpy()
 
     else:
         ndarray=tensor
@@ -37,3 +42,7 @@ def Dim4to3(tensor):
         return tensor.squeeze()
     else:
         return tensor
+
+def fitPredLabel(tensor):
+    tensor=tensor.sigmoid()
+    return tensor
